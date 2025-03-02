@@ -6,6 +6,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/maker', function () {
+Route::get('/builder', function () {
     return view('app.builder');
 });
