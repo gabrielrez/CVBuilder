@@ -4,7 +4,7 @@
         
         <div class="w-full max-w-xl mx-auto mt-10">
             <div class="w-full bg-gray-300 rounded-full h-2">
-                <div id="progress-bar" class="bg-gradient-to-r from-[#68ac99] to-[#8592bc] h-2 rounded-full w-2"></div>
+                <div id="progress-bar" class="bg-gradient-to-r from-[#68ac99] to-[#8592bc] h-2 rounded-full w-0"></div>
             </div>
             <p class="text-center mt-3 text-gray-700 font-medium">0% Complete</p>
         </div>
@@ -29,7 +29,7 @@
 
 <style>
     #progress-bar {
-        transition: width 0.4s ease-in-out;
+        transition: width 0.75s ease-in-out;
     }
 </style>
 
@@ -49,7 +49,6 @@
             progressBar.style.width = progress + "%";
             progressText.textContent = `${Math.round(progress)}% Complete`;
 
-            // Adiciona uma animação de suavização ao texto
             progressText.style.opacity = 0;
             setTimeout(() => {
                 progressText.style.opacity = 1;
@@ -106,8 +105,10 @@
             button.addEventListener("click", (event) => {
                 event.preventDefault();
                 if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
+                    setTimeout(() => {
+                        currentStep--;
+                        showStep(currentStep);
+                    }, 250);
                 }
                 if (currentStep === 0) {
                     window.location = '/';
