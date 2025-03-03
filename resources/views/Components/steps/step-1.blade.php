@@ -1,8 +1,9 @@
 <div class="step hidden">
     <div class="flex items-center gap-10 w-full">
-        <div class="flex justify-center items-center border-2 border-[#E2EAEF] cursor-pointer w-full max-w-48 h-48 rounded-3xl text-8xl text-[#ACC0D1]">
+        <label for="file-upload" class="flex flex-col justify-center items-center border-2 border-[#E2EAEF] hover:bg-[#E2EAEF] cursor-pointer w-full max-w-48 h-48 rounded-3xl text-8xl text-[#ACC0D1] transition-all">
             <i class="fa-solid fa-camera"></i>
-        </div>
+            <input id="file-upload" type="file" class="hidden">
+        </label>        
         <div class="w-full">
             <div class="w-full">
                 <label for="first_name" font-[inter]">*First Name:</label>

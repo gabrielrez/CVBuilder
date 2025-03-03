@@ -20,9 +20,18 @@
 
             <x-steps.step-3>
             </x-steps.step-3>
+
+            <x-steps.step-4>
+            </x-steps.step-4>
         </form>
     </main>
 </x-layout>
+
+<style>
+    #progress-bar {
+        transition: width 0.4s ease-in-out;
+    }
+</style>
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -39,6 +48,12 @@
             const progress = ((currentStep + 1) / steps.length) * 100 - (1 / steps.length * 100);
             progressBar.style.width = progress + "%";
             progressText.textContent = `${Math.round(progress)}% Complete`;
+
+            // Adiciona uma animação de suavização ao texto
+            progressText.style.opacity = 0;
+            setTimeout(() => {
+                progressText.style.opacity = 1;
+            }, 200);
         }
 
         function showStep(step) {
@@ -80,7 +95,7 @@
                 if (currentStep < steps.length - 1) {
                     currentStep++;
                     showStep(currentStep);
-                }else{
+                } else {
                     console.log(formData);
                     submitForm();
                 }
@@ -90,15 +105,11 @@
         prevButtons.forEach(button => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
-                console.log(currentStep);
                 if (currentStep > 0) {
-                    setTimeout(() => {
-                        currentStep--;
-                        showStep(currentStep);
-                    }, 250);
+                    currentStep--;
+                    showStep(currentStep);
                 }
-
-                if(currentStep === 0) {
+                if (currentStep === 0) {
                     window.location = '/';
                 }
             });
