@@ -11,18 +11,11 @@
 
         <form action="/resume" method="POST" id="steps-form" class="mt-12 font-[inter] w-full">
             @csrf
-
-            <x-steps.step-1>
-            </x-steps.step-1>
             
-            <x-steps.step-2>
-            </x-steps.step-2>
-
-            <x-steps.step-3>
-            </x-steps.step-3>
-
-            <x-steps.step-4>
-            </x-steps.step-4>
+            @foreach ($steps as $step)
+                @component("components.steps.step-$step")
+                @endcomponent
+            @endforeach
         </form>
     </main>
 </x-layout>
