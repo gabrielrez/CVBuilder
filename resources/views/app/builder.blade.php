@@ -9,12 +9,17 @@
             <p class="text-center mt-3 text-gray-700 font-medium">0% Complete</p>
         </div>
 
-        <form id="steps-form" class="mt-12 font-[inter] w-full">
+        <form action="/resume" method="POST" id="steps-form" class="mt-12 font-[inter] w-full">
+            @csrf
+
             <x-steps.step-1>
             </x-steps.step-1>
-
+            
             <x-steps.step-2>
             </x-steps.step-2>
+
+            <x-steps.step-3>
+            </x-steps.step-3>
         </form>
     </main>
 </x-layout>
@@ -29,7 +34,7 @@
 
         let currentStep = 0;
         let formData = {};
-        
+
         function updateProgressBar() {
             const progress = ((currentStep + 1) / steps.length) * 100 - (1 / steps.length * 100);
             progressBar.style.width = progress + "%";
@@ -43,12 +48,41 @@
             updateProgressBar();
         }
 
+        function saveFormData() {
+            const inputs = steps[currentStep].querySelectorAll("input, select, textarea");
+            inputs.forEach(input => {
+                formData[input.name] = input.value;
+            });
+        }
+
+        async function submitForm() {
+            try {
+                const response = await fetch("/resume", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content")
+                    },
+                    body: JSON.stringify(formData),
+                });
+
+                const result = await response.json();
+                console.log("Success:", result);
+            } catch (error) {
+                console.error("Error:", error);
+            }
+        }
+
         nextButtons.forEach(button => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
+                saveFormData();
                 if (currentStep < steps.length - 1) {
                     currentStep++;
                     showStep(currentStep);
+                }else{
+                    console.log(formData);
+                    submitForm();
                 }
             });
         });
@@ -56,9 +90,16 @@
         prevButtons.forEach(button => {
             button.addEventListener("click", (event) => {
                 event.preventDefault();
+                console.log(currentStep);
                 if (currentStep > 0) {
-                    currentStep--;
-                    showStep(currentStep);
+                    setTimeout(() => {
+                        currentStep--;
+                        showStep(currentStep);
+                    }, 250);
+                }
+
+                if(currentStep === 0) {
+                    window.location = '/';
                 }
             });
         });
