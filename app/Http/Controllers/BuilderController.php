@@ -13,6 +13,6 @@ class BuilderController extends Controller
 
     private function loadSteps()
     {
-        return range(1, 4);
+        return range(0, 3);
     }
 }

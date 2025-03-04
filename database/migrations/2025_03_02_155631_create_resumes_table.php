@@ -17,22 +17,14 @@ return new class extends Migration
     {
         Schema::create('resumes', function (Blueprint $table) {
             $table->id();
-            $table->string('picture');
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->string('picture')->nullable();
+            $table->string('first_name')->nullable();
+            $table->string('last_name')->nullable();
             $table->string('email')->nullable();
-            $table->string('phone');
-            $table->string('nationality');
-            $table->string('address')->nullable();
-            $table->date('birthday');
-            $table->string('gender')->nullable();
+            $table->string('phone')->nullable();
             $table->string('linkedin')->nullable();
             $table->string('website')->nullable();
-            $table->text('description');
-            $table->foreignIdFor(Expirience::class);
-            $table->foreignIdFor(Formation::class);
-            $table->foreignIdFor(Skill::class);
-            $table->foreignIdFor(User::class);
+            $table->text('personal_description')->nullable();
             $table->timestamps();
         });
     }
